@@ -1,0 +1,108 @@
+!@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+!======================= RA ===============================
+
+enable
+configure terminal
+
+hostname RA
+
+interface g0/0
+  description Red LAN en RA 
+  ip address 192.168.1.1 255.255.255.0
+  no shutdown
+exit
+
+interface s0/0/0
+  description Red WAN en RA a RB 
+  ip address 10.0.0.1 255.255.255.252
+  no shutdown
+exit
+
+!enrutamiento
+ip route 192.168.2.0 255.255.255.0 10.0.0.2
+ip route 192.168.3.0 255.255.255.0 10.0.0.2
+
+
+
+
+!======================= Sw0 ===============================
+enable
+configure terminal
+
+hostname Sw0
+
+
+
+!@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+!======================= RB ===============================
+
+enable
+configure terminal
+
+hostname RB
+
+interface g0/0
+  description Red LAN en RB 
+  ip address 192.168.2.1 255.255.255.0
+  no shutdown
+exit
+
+interface s0/0/1
+  description Red WAN en RB a RA
+  ip address 10.0.0.2 255.255.255.252
+  no shutdown
+exit
+
+interface s0/0/0
+  description Red WAN en RB a RC
+  ip address 11.0.0.1 255.255.255.252
+  no shutdown
+exit
+
+!enrutamiento
+ip route 192.168.1.0 255.255.255.0 10.0.0.1
+ip route 192.168.3.0 255.255.255.0 11.0.0.2
+
+
+
+
+!======================= Sw1 ===============================
+enable
+configure terminal
+
+hostname Sw1
+
+
+!@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+!======================= RC ===============================
+
+enable
+configure terminal
+
+hostname RC
+
+interface g0/0
+  description Red LAN en RC 
+  ip address 192.168.3.1 255.255.255.0
+  no shutdown
+exit
+
+interface s0/0/1
+  description Red WAN en RC a RB 
+  ip address 11.0.0.2 255.255.255.252
+  no shutdown
+exit
+
+!enrutamiento
+ip route 192.168.2.0 255.255.255.0 11.0.0.1
+ip route 192.168.3.0 255.255.255.0 11.0.0.1
+
+
+
+
+!======================= Sw2 ===============================
+enable
+configure terminal
+
+hostname Sw2
+

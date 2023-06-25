@@ -1,0 +1,317 @@
+!--------------------------------CC---------------------------------
+enable
+configure terminal
+
+no ip domain-lookup
+no logging console
+
+ipv6 unicast-routing
+
+int S0/0/0
+  description WAN a CI
+  ipv6 address 2001:BACA:CAFE:5::2/64
+  ipv6 address fe80::1 link-local
+ no sh
+
+int S0/0/1
+  description WAN a UA
+  ipv6 address 2001:BACA:CAFE:2::1/64
+  ipv6 address fe80::1 link-local
+ no sh
+
+int S0/1/0
+  description WAN a RR
+  ipv6 address 2001:BACA:CAFE:6::1/64
+  ipv6 address fe80::1 link-local
+ no sh
+
+int S0/1/1
+  description WAN a ISP
+  ipv6 address 2001:BACA:CAFE:1::1/64
+  ipv6 address FE80::1 link-local
+ no sh
+
+int g0/0
+  description LAN a Sw-CC
+  ipv6 address 2001:BACA:CAFE:B::1/64
+  ipv6 address fe80::1 link-local
+ no sh
+
+int g0/1
+  description LAN a wireless-CC
+  ipv6 address 2001:BACA:CAFE:A::1/64
+  ipv6 address fe80::1 link-local
+ no sh
+exit
+!ENRUTAMIENTO 
+ipv6 route 2001:BACA:CAFE:13::1/64 2001:BACA:CAFE:1::2
+
+ipv6 route 2001:BACA:CAFE:C::/64 2001:BACA:CAFE:2::2 
+ipv6 route 2001:BACA:CAFE:D::/64 2001:BACA:CAFE:2::2 
+ipv6 route 2001:BACA:CAFE:E::/64 2001:BACA:CAFE:2::2 
+
+ipv6 route 2001:BACA:CAFE:F::/64 2001:BACA:CAFE:2::2 
+ipv6 route 2001:BACA:CAFE:10::/64 2001:BACA:CAFE:2::2 
+
+ipv6 route 2001:BACA:CAFE:11::/64 2001:BACA:CAFE:2::2 
+ipv6 route 2001:BACA:CAFE:12::/64 2001:BACA:CAFE:2::2 
+
+! RESPALDO
+ipv6 route 2001:BACA:CAFE:13::1/64 2001:BACA:CAFE:6::2 5
+ipv6 route 2001:BACA:CAFE:C::/64 2001:BACA:CAFE:6::2 5
+ipv6 route 2001:BACA:CAFE:D::/64 2001:BACA:CAFE:6::2 5
+ipv6 route 2001:BACA:CAFE:E::/64 2001:BACA:CAFE:6::2 5
+ipv6 route 2001:BACA:CAFE:F::/64 2001:BACA:CAFE:6::2 5
+ipv6 route 2001:BACA:CAFE:10::/64 2001:BACA:CAFE:6::2 5
+ipv6 route 2001:BACA:CAFE:11::/64 2001:BACA:CAFE:6::2 5
+ipv6 route 2001:BACA:CAFE:12::/64 2001:BACA:CAFE:6::2 5
+
+!-------------------------------UA--------------------------
+enable
+configure terminal
+
+no ip domain-lookup
+no logging console
+
+ipv6 unicast-routing
+
+int S0/0/0
+  description WAN a CC
+  ipv6 address 2001:BACA:CAFE:2::2/64
+  ipv6 address fe80::1 link-local
+ no sh
+
+int S0/0/1
+  description WAN a DI
+  ipv6 address 2001:BACA:CAFE:3::1/64
+  ipv6 address fe80::1 link-local
+ no sh
+
+int S0/1/0
+  description WAN a RR
+  ipv6 address 2001:BACA:CAFE:7::1/64
+  ipv6 address fe80::1 link-local
+ no sh
+
+int g0/0
+  ipv6 address 2001:BACA:CAFE:C::1/64
+  ipv6 address fe80::1 link-local
+no sh
+
+int g0/1
+  ipv6 address 2001:BACA:CAFE:D::1/64
+  ipv6 address fe80::1 link-local
+no sh
+
+int g0/2
+  ipv6 address 2001:BACA:CAFE:E::1/64
+  ipv6 address fe80::1 link-local
+no sh
+
+!ENRUTAMIENTO
+ipv6 route 2001:BACA:CAFE:13::1/64 2001:BACA:CAFE:3::2
+ipv6 route 2001:BACA:CAFE:A::/64 2001:BACA:CAFE:3::2
+ipv6 route 2001:BACA:CAFE:B::/64 2001:BACA:CAFE:3::2
+ipv6 route 2001:BACA:CAFE:F::/64 2001:BACA:CAFE:3::2 
+ipv6 route 2001:BACA:CAFE:10::/64 2001:BACA:CAFE:3::2 
+ipv6 route 2001:BACA:CAFE:11::/64 2001:BACA:CAFE:3::2 
+ipv6 route 2001:BACA:CAFE:12::/64 2001:BACA:CAFE:3::2 
+
+! RESPALDO
+ipv6 route 2001:BACA:CAFE:13::1/64 2001:BACA:CAFE:7::2 5
+ipv6 route 2001:BACA:CAFE:A::/64 2001:BACA:CAFE:7::2 5
+ipv6 route 2001:BACA:CAFE:B::/64 2001:BACA:CAFE:7::2 5
+ipv6 route 2001:BACA:CAFE:F::/64 2001:BACA:CAFE:7::2 5
+ipv6 route 2001:BACA:CAFE:10::/64 2001:BACA:CAFE:7::2 5
+ipv6 route 2001:BACA:CAFE:11::/64 2001:BACA:CAFE:7::2 5
+ipv6 route 2001:BACA:CAFE:12::/64 2001:BACA:CAFE:7::2 5
+!------------------------DI----------------------------------------
+enable
+configure terminal
+
+no ip domain-lookup
+no logging console
+
+ipv6 unicast-routing
+
+int S0/0/0
+  description WAN a UA
+  ipv6 address 2001:BACA:CAFE:3::2/64
+  ipv6 address fe80::1 link-local
+ no sh
+
+int S0/0/1
+  description WAN a CI
+  ipv6 address 2001:BACA:CAFE:4::1/64
+  ipv6 address fe80::1 link-local
+ no sh
+
+int S0/1/0
+  description WAN a RR
+  ipv6 address 2001:BACA:CAFE:8::1/64
+  ipv6 address fe80::1 link-local
+ no sh
+int g0/0
+  ipv6 address 2001:BACA:CAFE:F::1/64
+  ipv6 address fe80::1 link-local
+no sh
+int g0/1
+  ipv6 address 2001:BACA:CAFE:10::1/64
+  ipv6 address fe80::1 link-local
+no sh
+
+!RUTEO 
+ipv6 route 2001:BACA:CAFE:13::1/64 2001:BACA:CAFE:4::2
+ipv6 route 2001:BACA:CAFE:A::/64 2001:BACA:CAFE:4::2
+ipv6 route 2001:BACA:CAFE:B::/64 2001:BACA:CAFE:4::2
+ipv6 route 2001:BACA:CAFE:C::/64 2001:BACA:CAFE:4::2 
+ipv6 route 2001:BACA:CAFE:D::/64 2001:BACA:CAFE:4::2 
+ipv6 route 2001:BACA:CAFE:E::/64 2001:BACA:CAFE:4::2 
+ipv6 route 2001:BACA:CAFE:11::/64 2001:BACA:CAFE:4::2 
+ipv6 route 2001:BACA:CAFE:12::/64 2001:BACA:CAFE:4::2 
+
+! RESPALDO
+ipv6 route 2001:BACA:CAFE:13::1/64 2001:BACA:CAFE:8::2 5
+ipv6 route 2001:BACA:CAFE:A::/64 2001:BACA:CAFE:8::2 5
+ipv6 route 2001:BACA:CAFE:B::/64 2001:BACA:CAFE:8::2 5
+ipv6 route 2001:BACA:CAFE:C::/64 2001:BACA:CAFE:8::2 5
+ipv6 route 2001:BACA:CAFE:D::/64 2001:BACA:CAFE:8::2 5
+ipv6 route 2001:BACA:CAFE:E::/64 2001:BACA:CAFE:8::2 5
+ipv6 route 2001:BACA:CAFE:11::/64 2001:BACA:CAFE:8::2 5
+ipv6 route 2001:BACA:CAFE:12::/64 2001:BACA:CAFE:8::2 5
+
+!------------------------CI----------------------------------------
+enable
+configure terminal
+
+no ip domain-lookup
+no logging console
+
+ipv6 unicast-routing
+
+int S0/0/0
+  description WAN a DI
+  ipv6 address 2001:BACA:CAFE:4::2/64
+  ipv6 address fe80::1 link-local
+ no sh
+
+int S0/0/1
+  description WAN a CC
+  ipv6 address 2001:BACA:CAFE:5::1/64
+  ipv6 address fe80::1 link-local
+ no sh
+
+int S0/1/0
+  description WAN a RR
+  ipv6 address 2001:BACA:CAFE:9::1/64
+  ipv6 address fe80::1 link-local
+ no sh
+
+int g0/0
+  description LAN a Sw-CI
+  ipv6 address 2001:BACA:CAFE:11::1/64
+  ipv6 address fe80::1 link-local
+no sh
+
+int g0/1
+  description LAN a PS-CI
+  ipv6 address 2001:BACA:CAFE:12::1/64
+  ipv6 address fe80::1 link-local
+no sh
+
+!RUTEO
+ipv6 route 2001:BACA:CAFE:13::1/64 2001:BACA:CAFE:5::2
+ipv6 route 2001:BACA:CAFE:A::/64 2001:BACA:CAFE:5::2
+ipv6 route 2001:BACA:CAFE:B::/64 2001:BACA:CAFE:5::2
+ipv6 route 2001:BACA:CAFE:C::/64 2001:BACA:CAFE:5::2
+ipv6 route 2001:BACA:CAFE:D::/64 2001:BACA:CAFE:5::2
+ipv6 route 2001:BACA:CAFE:E::/64 2001:BACA:CAFE:5::2
+ipv6 route 2001:BACA:CAFE:F::/64 2001:BACA:CAFE:5::2 
+ipv6 route 2001:BACA:CAFE:10::/64 2001:BACA:CAFE:5::2 
+
+!RESPALDO
+ipv6 route 2001:BACA:CAFE:13::1/64 2001:BACA:CAFE:9::2 5
+ipv6 route 2001:BACA:CAFE:A::/64 2001:BACA:CAFE:9::2 5
+ipv6 route 2001:BACA:CAFE:B::/64 2001:BACA:CAFE:9::2 5
+ipv6 route 2001:BACA:CAFE:C::/64 2001:BACA:CAFE:9::2 5
+ipv6 route 2001:BACA:CAFE:D::/64 2001:BACA:CAFE:9::2 5
+ipv6 route 2001:BACA:CAFE:E::/64 2001:BACA:CAFE:9::2 5
+ipv6 route 2001:BACA:CAFE:F::/64 2001:BACA:CAFE:9::2 5
+ipv6 route 2001:BACA:CAFE:10::/64 2001:BACA:CAFE:9::2 5
+
+!------------------------RR----------------------------------------
+enable
+configure terminal
+
+no ip domain-lookup
+no logging console
+
+ipv6 unicast-routing
+
+int S0/0/1
+  description WAN a CC
+  ipv6 address 2001:BACA:CAFE:6::2/64
+  ipv6 address fe80::1 link-local
+ no sh
+
+int S0/1/1
+  description WAN a UA
+  ipv6 address 2001:BACA:CAFE:7::2/64
+  ipv6 address fe80::1 link-local
+ no sh
+
+int S0/2/1
+  description WAN a CI
+  ipv6 address 2001:BACA:CAFE:9::2/64
+  ipv6 address fe80::1 link-local
+ no sh
+
+int S0/3/1
+  description WAN a DI
+  ipv6 address 2001:BACA:CAFE:8::2/64
+  ipv6 address fe80::1 link-local
+ no sh
+
+ !RUTEO
+ipv6 route 2001:BACA:CAFE:13::1/64 2001:BACA:CAFE:6::1
+ipv6 route 2001:BACA:CAFE:A::/64 2001:BACA:CAFE:6::1
+ipv6 route 2001:BACA:CAFE:B::/64 2001:BACA:CAFE:6::1
+ipv6 route 2001:BACA:CAFE:C::/64 2001:BACA:CAFE:7::1
+ipv6 route 2001:BACA:CAFE:D::/64 2001:BACA:CAFE:7::1
+ipv6 route 2001:BACA:CAFE:E::/64 2001:BACA:CAFE:7::1
+ipv6 route 2001:BACA:CAFE:F::/64 2001:BACA:CAFE:8::1
+ipv6 route 2001:BACA:CAFE:10::/64 2001:BACA:CAFE:8::1
+ipv6 route 2001:BACA:CAFE:11::/64 2001:BACA:CAFE:9::1
+ipv6 route 2001:BACA:CAFE:12::/64 2001:BACA:CAFE:9::1
+
+!---------------------ISP-------------------
+enable
+configure terminal
+
+no ip domain-lookup
+no logging console
+
+ipv6 unicast-routing
+
+int g0/0
+  description LAN del ISP
+  ipv6 address 2001:BACA:CAFE:13::1/64
+  ipv6 address FE80::1 link-local
+no sh
+
+int S0/0/1
+  description WAN a CC
+  ipv6 address 2001:BACA:CAFE:1::2/64
+  ipv6 address FE80::1 link-local
+ no sh
+
+ !RUTEO
+ipv6 route 2001:BACA:CAFE:A::/64 2001:BACA:CAFE:1::1
+ipv6 route 2001:BACA:CAFE:B::/64 2001:BACA:CAFE:1::1
+ipv6 route 2001:BACA:CAFE:C::/64 2001:BACA:CAFE:1::1
+ipv6 route 2001:BACA:CAFE:D::/64 2001:BACA:CAFE:1::1
+ipv6 route 2001:BACA:CAFE:E::/64 2001:BACA:CAFE:1::1
+ipv6 route 2001:BACA:CAFE:F::/64 2001:BACA:CAFE:1::1
+ipv6 route 2001:BACA:CAFE:10::/64 2001:BACA:CAFE:1::1
+ipv6 route 2001:BACA:CAFE:11::/64 2001:BACA:CAFE:1::1
+ipv6 route 2001:BACA:CAFE:12::/64 2001:BACA:CAFE:1::1
